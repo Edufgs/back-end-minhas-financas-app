@@ -26,10 +26,15 @@
 
 		<!-- Essa é a dependencia do postgresql -->
 		<!-- A versão o proprio Spring sabe qual pegar -->
-
 		<dependency>
     		<groupId>org.postgresql</groupId>
     		<artifactId>postgresql</artifactId>
+		</dependency>
+		
+		<!-- O Lombok é uma biblioteca java que se conecta automaticamente ao seu editor e cria ferramentas, apimentando seu java. Nunca escreva outro método getter ou equals novamente, com uma anotação sua classe tem um construtor completo, automatize suas variáveis ​​de log e muito mais. -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
 
 		<dependency>

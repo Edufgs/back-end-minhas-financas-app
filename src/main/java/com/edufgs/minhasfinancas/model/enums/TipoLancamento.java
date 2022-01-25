@@ -1,4 +1,4 @@
-package com.edufgs.minhasfinancas.model.entity;
+package com.edufgs.minhasfinancas.model.enums;
 
 public enum TipoLancamento {
 	//Enum = constantes são maiusculas
