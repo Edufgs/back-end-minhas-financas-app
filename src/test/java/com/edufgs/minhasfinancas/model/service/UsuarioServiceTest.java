@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -18,19 +19,20 @@ import com.edufgs.minhasfinancas.service.impl.UsuarioServiceImpl;
 @ActiveProfiles("test") //Seleciona o perfil do teste usando h2
 public class UsuarioServiceTest {
 	
-	//@Autowired //Injeta essa classe no contexto do spring boot. Não precisa mais pq vai ser feito testes unitarios e não precisa das instacias oficiais
+	//@Autowired //Injeta essa classe no contexto do spring boot. Não precisa mais pq vai ser feito testes unitarios e não precisa das instanncias oficiais
 	UsuarioService service; //Interface que valida e testa os dados
 	
-	//@Autowired //Injeta essa classe no contexto do spring boot. Não precisa mais pq vai ser feito testes unitarios e não precisa das instacias oficiais
+	//@Autowired //Injeta essa classe no contexto do spring boot. Não precisa mais pq vai ser feito testes unitarios e não precisa das instanncias oficiais
+	@MockBean //Com essa anotação o spring boot faz automatico o processo de mock. Então agora ele cria uma instacia mockada.
 	UsuarioRepository repository; //Banco de dados
 	
 	//Metodo para configurar os testes
 	@Before //Notação faz executar antes dos testes
 	public void setUp() {
-		//Classe mock onde ela cria instacias fake e simula que chamou algum metodo 
-		repository = Mockito.mock(UsuarioRepository.class); //Então ele vai simular os metodos para não precisar executar os reais
+		//Classe mock onde ela cria instanncias fake e simula que chamou algum metodo 
+		//repository = Mockito.mock(UsuarioRepository.class); //Não precisa mais dessa linha pois oi adicionado a notação @MockBean no atributo repository onde faz esse processo automatico. Então ele vai simular os metodos para não precisar executar os reais
 		
-		//Instancia real do UsuarioService passando o repository mokado
+		//instanncia real do UsuarioService passando o repository mokado
 		service = new UsuarioServiceImpl(repository);
 	}
 	
@@ -38,7 +40,7 @@ public class UsuarioServiceTest {
 	@Test(expected = Test.None.class)
 	public void deveValidarEmail() {
 		//cenario
-		//Classe mock onde ela cria instacias fake e simula que chamou algum metodo 
+		//Classe mock onde ela cria instancias fake e simula que chamou algum metodo 
 		//UsuarioRepository usuarioRepositoryMock = Mockito.mock(UsuarioRepository.class); //Então ele vai simular os metodos para não precisar executar os reais
 		
 		//Quando fizer a chamada para o mocki repository o metodo existsByEmail passando qualquer string não interessando a string passada vai dar return false
