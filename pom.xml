@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+<<<<<<< HEAD
 
 	<groupId>com.example</groupId>
 	<artifactId>myproject</artifactId>
@@ -48,6 +49,38 @@
 		</dependency>
 		
 		<!-- O Lombok e uma biblioteca java que se conecta automaticamente ao seu editor e cria ferramentas, apimentando seu java. Nunca escreva outro metodo getter ou equals novamente, com uma anotacao sua classe tem um construtor completo, automatize suas variaveis ​​de log e muito mais. -->
+=======
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.6.3</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.edufgs</groupId>
+	<artifactId>minhasfinancas</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>minhasfinancas</name>
+	<description>Projeto gerenciamento de finanças pessoais </description>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+	<dependencies>
+		
+		<!-- Dependencia da JPA da documentação Spring Boot -->
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- Essa é a dependencia do postgresql -->
+		<!-- A versão o proprio Spring sabe qual pegar -->
+		<dependency>
+    		<groupId>org.postgresql</groupId>
+    		<artifactId>postgresql</artifactId>
+		</dependency>
+		
+		<!-- O Lombok é uma biblioteca java que se conecta automaticamente ao seu editor e cria ferramentas, apimentando seu java. Nunca escreva outro método getter ou equals novamente, com uma anotação sua classe tem um construtor completo, automatize suas variáveis ​​de log e muito mais. -->
+>>>>>>> 29b462220554fded6bf8e0b4516c64bb86b0f9d1
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -56,12 +89,19 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+<<<<<<< HEAD
 			<scope>test</scope>			
 		</dependency>
 
 	</dependencies>
 
 	<!-- Package as an executable jar -->
+=======
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+>>>>>>> 29b462220554fded6bf8e0b4516c64bb86b0f9d1
 	<build>
 		<plugins>
 			<plugin>
@@ -70,4 +110,9 @@
 			</plugin>
 		</plugins>
 	</build>
+<<<<<<< HEAD
 </project>
+=======
+
+</project>
+>>>>>>> 29b462220554fded6bf8e0b4516c64bb86b0f9d1

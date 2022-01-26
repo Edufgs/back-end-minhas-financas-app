@@ -9,6 +9,7 @@ import com.edufgs.minhasfinancas.model.entity.Usuario;
  * Ele faz tudo mas só para uma entidade que foi declarada
  * */ 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+<<<<<<< HEAD
 		
 	/* Metodo que retorna um Optional (pode retornar algo ou não)
 	 * O findByEmail é um quary metods: não é preciso dizer como vai gerar um sql para consultar um usuario na base de dados.
@@ -26,4 +27,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	/* Aqui busca um parametro e se encontrar retorna true ou false dependendo se encontrar ou não
 	 * */	
 	boolean existsByEmail(String email);
+=======
+	
+>>>>>>> 29b462220554fded6bf8e0b4516c64bb86b0f9d1
 }
