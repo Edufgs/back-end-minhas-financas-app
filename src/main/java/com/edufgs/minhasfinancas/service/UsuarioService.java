@@ -15,4 +15,5 @@ public interface UsuarioService{
 	
 	/* Verifica se tem o email cadastrado uma vez no banco */
 	void validarEmail(String email);
+	
 }

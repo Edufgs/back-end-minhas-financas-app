@@ -12,12 +12,12 @@ import com.edufgs.minhasfinancas.model.entity.Usuario;
 
 //Anotação para teste
 @RunWith(SpringRunner.class)
-@SpringBootTest //Faz com que o contexto do spring boot suba
+@SpringBootTest //Faz com que o contexto do spring boot teste suba
 @ActiveProfiles("test") //Seleciona o perfil do teste usando h2
 public class UsuarioRepositoryTest {
 	
 	@Autowired //Injeta essa classe no contexto do spring boot
-	UsuarioRepository repository;//Classe que quero testar
+	UsuarioRepository repository; //Classe que quero testar
 	
 	/* Todo metodo do tipo teste tem retorno void
 	 * Para fazer o teste precisa de tres elemento:
