@@ -3,11 +3,11 @@ package com.edufgs.minhasfinancas.model.service;
 import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -15,7 +15,6 @@ import com.edufgs.minhasfinancas.exception.ErroAutenticacao;
 import com.edufgs.minhasfinancas.exception.RegraNegocioException;
 import com.edufgs.minhasfinancas.model.entity.Usuario;
 import com.edufgs.minhasfinancas.model.repository.UsuarioRepository;
-import com.edufgs.minhasfinancas.service.UsuarioService;
 import com.edufgs.minhasfinancas.service.impl.UsuarioServiceImpl;
 
 //Anotação para teste
@@ -25,20 +24,80 @@ import com.edufgs.minhasfinancas.service.impl.UsuarioServiceImpl;
 public class UsuarioServiceTest {
 	
 	//@Autowired //Injeta essa classe no contexto do spring boot. Não precisa mais pq vai ser feito testes unitarios e não precisa das instanncias oficiais
-	UsuarioService service; //Interface que valida e testa os dados
+	//UsuarioService service; //Interface que valida e testa os dados
+	
+	//Ele chama o metodo real ao contrario o mock
+	//Spy: Usa os metodos originais da classe diferente do Mock que não usa
+	@SpyBean
+	UsuarioServiceImpl service;
 	
 	//@Autowired //Injeta essa classe no contexto do spring boot. Não precisa mais pq vai ser feito testes unitarios e não precisa das instanncias oficiais
 	@MockBean //Com essa anotação o spring boot faz automatico o processo de mock. Então agora ele cria uma instacia mockada.
 	UsuarioRepository repository; //Banco de dados
 	
 	//Metodo para configurar os testes
+	/* Não precisa mais desse metodo
 	@Before //Notação faz executar antes dos testes
 	public void setUp() {
 		//Classe mock onde ela cria instanncias fake e simula que chamou algum metodo 
 		//repository = Mockito.mock(UsuarioRepository.class); //Não precisa mais dessa linha pois oi adicionado a notação @MockBean no atributo repository onde faz esse processo automatico. Então ele vai simular os metodos para não precisar executar os reais
 		
+		//Agora vai receber um spy
+		//service = Mockito.spy(UsuarioServiceImpl.class);
+		
 		//instanncia real do UsuarioService passando o repository mokado
-		service = new UsuarioServiceImpl(repository);
+		//service = new UsuarioServiceImpl(repository);
+	}*/
+	
+	@Test(expected = Test.None.class) //Espera que não lance erro nesse teste
+	public void deveSalvarUsuario() {
+		//Cenario
+		//doNothing() diz para não fazer nada, não da nenhum erro no metodo validarEmail passando qualquer string (anyString)
+		Mockito.doNothing().when(service).validarEmail(Mockito.anyString());
+		Usuario usuario = Usuario.builder()
+				.id(1l)//1l pois é só numero long
+				.nome("Nome")
+				.email("email@email.com")
+				.senha("senha")
+				.build();
+		//Diz que quando passar para salvar qualquer usuario então vai ser retornado o usuario de cima
+		Mockito.when(repository.save(Mockito.any(Usuario.class))).thenReturn(usuario);
+		
+		//Acao
+		//Não importa o usuario passado pois como diz a cima, vai ser retornado o usuario criado em cima
+		//Lembrando que o salvarUsuario retorna o usuario salvo
+		Usuario usuarioSalvo = service.salvarUsuario(new Usuario());
+		
+		//Verificacao
+		//verifica se o usuario esta nulo
+		Assertions.assertThat(usuarioSalvo).isNotNull();
+		//Verifica o id se é igual o digitado
+		Assertions.assertThat(usuarioSalvo.getId()).isEqualTo(1l);
+		//Verifica o nome se é igual o digitado
+		Assertions.assertThat(usuarioSalvo.getNome()).isEqualTo("Nome");
+		//Verifica se o email é igual ao email digitado
+		Assertions.assertThat(usuarioSalvo.getEmail()).isEqualTo("email@email.com");
+		//Verifica se a senha é igual a digitada
+		Assertions.assertThat(usuarioSalvo.getSenha()).isEqualTo("senha");
+		
+	}
+	
+	@Test(expected = RegraNegocioException.class)  // Diz para o teste esperar uma exceção/erro
+	public void naoDeveSalvarUmUsuarioComEmailJaCadastrado() {
+		//Cenario
+		String email = "email@email.com";
+		Usuario usuario = Usuario.builder().email(email).build();
+		//Quando chamar o service validaEmail jogue uma RegraNegocioException
+		Mockito.doThrow(RegraNegocioException.class).when(service).validarEmail(email);
+		
+		//Acao
+		service.salvarUsuario(usuario);
+		
+		//Verificacao
+		//Metodo verify recebe o metodo que nunca deve ser chamado
+		//Então ele verifica se o metodo repository.save(usuario) nunca foi chamado
+		Mockito.verify(repository,Mockito.never()).save(usuario);
+		
 	}
 	
 	/*(expected = Test.None.class) = Diz para o teste esperar que não lance nem uma exceção */
