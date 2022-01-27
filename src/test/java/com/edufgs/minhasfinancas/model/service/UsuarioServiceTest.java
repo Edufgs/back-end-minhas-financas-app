@@ -1,5 +1,8 @@
 package com.edufgs.minhasfinancas.model.service;
 
+import java.util.Optional;
+
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +11,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.edufgs.minhasfinancas.exception.ErroAutenticacao;
 import com.edufgs.minhasfinancas.exception.RegraNegocioException;
+import com.edufgs.minhasfinancas.model.entity.Usuario;
 import com.edufgs.minhasfinancas.model.repository.UsuarioRepository;
 import com.edufgs.minhasfinancas.service.UsuarioService;
 import com.edufgs.minhasfinancas.service.impl.UsuarioServiceImpl;
@@ -34,6 +39,64 @@ public class UsuarioServiceTest {
 		
 		//instanncia real do UsuarioService passando o repository mokado
 		service = new UsuarioServiceImpl(repository);
+	}
+	
+	/*(expected = Test.None.class) = Diz para o teste esperar que não lance nem uma exceção */
+	@Test(expected = Test.None.class)
+	public void deveAutenticarUsuarioComSucesso() {
+		//Cenario
+		String email = "email@email.com";
+		String senha = "senha";
+		
+		Usuario usuario = Usuario.builder().email(email).senha(senha).build();
+		
+		//Classe mock onde ela cria instancias fake e simula que chamou algum metodo
+		//Quando usar o comando repository.findByEmail(email) então vai retornar o usuario a cima
+		Mockito.when(repository.findByEmail(email)).thenReturn(Optional.of(usuario));
+		
+		//Acao
+		//Usa a classe UsuarioServiceImpl para testar o autentificador
+		Usuario result = service.autenticar(email, senha);
+		
+		//Verificação
+		//Verifica se o result não é null
+		Assertions.assertThat(result).isNotNull();
+	}
+	
+	@Test//Não precisa mais de (expected = ErroAutenticacao.class), pois vai ser testado com Assertion. // Diz para o teste esperar uma exceção
+	public void deveLancarErroQuandoNaoEncontrarUsuarioCadastradoComEmailInformado() {
+		
+		//Cenario
+		//Não importa o email passado ele sempte vai retorna vazio
+		Mockito.when(repository.findByEmail(Mockito.anyString())).thenReturn(Optional.empty());
+		
+		//Acao
+		Throwable exception = Assertions.catchThrowable( () -> service.autenticar("email@email.com", "senha"));
+		
+		//Verifiar
+		//Esta veificando se acontece um erro na notação @Test(expected = ErroAutenticacao.class) // Diz para o teste esperar uma exceção RegraNegocioException
+		//Agora vai ser verifiacdo com Assertions
+		Assertions.assertThat(exception).isInstanceOf(ErroAutenticacao.class).hasMessage("Usuário não encontrado para o email informado.");
+		
+	}
+	
+	@Test //Não precisa mais de (expected = ErroAutenticacao.class), pois vai ser testado com Assertion. // Diz para o teste esperar uma exceção
+	public void deveLancarErroQuandoSenhaNaoBater() {
+		//Cenario
+		String senha = "senha";		
+		Usuario usuario = Usuario.builder().email("email@email.com").senha(senha).build();		
+		//Não importa o email passado ele sempte vai retornar o usuario a cima
+		Mockito.when(repository.findByEmail(Mockito.anyString())).thenReturn(Optional.of(usuario));
+		
+		//Acao
+		//Assertions.catchThrowable capitura o erro lançado e retorna
+		//() -> = O Assertions.catchThrowable espera a chamada de um metodo então usa a expressão lambda
+		Throwable exception = Assertions.catchThrowable( () -> service.autenticar("email@email.com", "123"));
+		
+		//Verificacao
+		//Verifica se o erro a cima "exception" pe instaciado pelo "ErroAutenticacao" com a mensagem "Senha Inválida."
+		Assertions.assertThat(exception).isInstanceOf(ErroAutenticacao.class).hasMessage("Senha Inválida.");
+		
 	}
 	
 	/*(expected = Test.None.class) = Diz para o teste esperar que não lance nem uma exceção */

@@ -25,7 +25,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 		super();
 		this.repository = repository;
 	}
-
+	
+	//Autentica usuario na hora do login
 	@Override
 	public Usuario autenticar(String email, String senha) {
 		//Verifica se tem um email cadastrado
