@@ -29,7 +29,7 @@ import javax.persistence.ManyToOne;
 //Usando o Lombok em vez de digitar o set e get entre outros
 @Data //Já tem tudo que get, set, constructor, entre outros. Mas tambem pode colocar um por um.(@Setter, @Getter, .....)
 @Builder //Construir um objeto mais facil
-public class Lancamentos {
+public class Lancamento {
 	
 	//Mapeamento das colunas
 	@Id //Diz que é o Id primario

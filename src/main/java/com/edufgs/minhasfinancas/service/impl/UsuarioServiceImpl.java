@@ -51,7 +51,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
 	@Override
-	@Transactional //Cria na base de dados uma transação, executa o metodo de salvar o usuario quando pedir e depois que salvar vai commitar
+	@Transactional //Cria na base de dados uma transação, executa o metodo de salvar o usuario quando pedir e depois que salvar vai commitar. Se acontecer algum erro é feito o rollback.
 	public Usuario salvarUsuario(Usuario usuario) {
 		//primeiro valida o email para ver se ja está cadastrado		
 		validarEmail(usuario.getEmail());
@@ -67,7 +67,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 		if(existe) {
 			//Lança uma exceção
-			throw new RegraNegocioException("Já existe um usuario cadastrado com este email");
+			throw new RegraNegocioException("Já existe um usuario cadastrado com este email.");
 		}
 	}
 

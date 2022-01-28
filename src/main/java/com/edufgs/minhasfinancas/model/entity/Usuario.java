@@ -1,6 +1,5 @@
 package com.edufgs.minhasfinancas.model.entity;
 
-import javax.annotation.processing.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
