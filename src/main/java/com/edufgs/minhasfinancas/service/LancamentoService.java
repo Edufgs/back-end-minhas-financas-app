@@ -22,4 +22,7 @@ public interface LancamentoService {
 	//Atualiza os status do lancamento
 	void atualizarStatus(Lancamento lancamento, StatusLancamento status);
 	
+	//Valida os dados preenchidos
+	void validar(Lancamento lancamento);
+	
 }
