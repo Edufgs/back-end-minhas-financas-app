@@ -17,8 +17,10 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import com.edufgs.minhasfinancas.model.enums.StatusLancamento;
 import com.edufgs.minhasfinancas.model.enums.TipoLancamento;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -29,6 +31,8 @@ import javax.persistence.ManyToOne;
 //Usando o Lombok em vez de digitar o set e get entre outros
 @Data //Já tem tudo que get, set, constructor, entre outros. Mas tambem pode colocar um por um.(@Setter, @Getter, .....)
 @Builder //Construir um objeto mais facil
+@NoArgsConstructor //Cria um construtor sem argumento 
+@AllArgsConstructor //Cria um construtor com argumento
 public class Lancamento {
 	
 	//Mapeamento das colunas

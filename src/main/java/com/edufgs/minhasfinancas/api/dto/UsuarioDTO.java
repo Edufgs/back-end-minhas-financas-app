@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /* É apenas uma classe que vai receber alguns atributos simples
- * É usado para ser preenchido e depois transformado em um objeto usuario
+ * É usado para ser preenchido e depois transformado em um objeto usuario e JSON
  * */
 
 //Usando o Lombok em vez de digitar o set e get entre outros

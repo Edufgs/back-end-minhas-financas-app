@@ -1,5 +1,7 @@
 package com.edufgs.minhasfinancas.service;
 
+import java.util.Optional;
+
 import com.edufgs.minhasfinancas.model.entity.Usuario;
 
 public interface UsuarioService{
@@ -15,5 +17,8 @@ public interface UsuarioService{
 	
 	/* Verifica se tem o email cadastrado uma vez no banco */
 	void validarEmail(String email);
+	
+	//Busca um usuario por id
+	Optional<Usuario> obterPorId(Long id);
 	
 }

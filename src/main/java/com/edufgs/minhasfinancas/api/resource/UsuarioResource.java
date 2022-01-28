@@ -34,7 +34,7 @@ public class UsuarioResource {
 	
 	/* Metodo para fazer a autenticação do usuario
 	 * @RequestBody = Diz ao objeto Json que vem da requisição com os dados do usuario seja transformados no objeto "UsuarioDTO
-	 * @PostMapping("/autenticar") = Dia que a requisição desse metodo vai terminar com "/autenticar". Então vai ficar com "/api/usuarios/autenticar" para esse metodo receber um Post. 
+	 * @PostMapping("/autenticar") = Diz que a requisição desse metodo vai terminar com "/autenticar". Então vai ficar com "/api/usuarios/autenticar" para esse metodo receber um Post. 
 	 * */
 	@PostMapping("/autenticar") //Dia que a requisição desse metodo vai terminar com "/autenticar". Então vai ficar com "/api/usuarios/autenticar" para esse metodo receber um Post. 
 	public ResponseEntity autenticar(@RequestBody UsuarioDTO dto) {

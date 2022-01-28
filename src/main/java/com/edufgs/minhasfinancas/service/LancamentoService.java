@@ -1,6 +1,7 @@
 package com.edufgs.minhasfinancas.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.edufgs.minhasfinancas.model.entity.Lancamento;
 import com.edufgs.minhasfinancas.model.enums.StatusLancamento;
@@ -25,4 +26,6 @@ public interface LancamentoService {
 	//Valida os dados preenchidos
 	void validar(Lancamento lancamento);
 	
+	//Busca lancamento por id
+	Optional<Lancamento> obterPorId(Long id);
 }

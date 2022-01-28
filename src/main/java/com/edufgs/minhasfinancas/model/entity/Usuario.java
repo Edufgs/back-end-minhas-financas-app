@@ -17,8 +17,8 @@ import lombok.NoArgsConstructor;
 //Usando o Lombok em vez de digitar o set e get entre outros
 @Data //Já tem tudo que get, set, constructor, entre outros. Mas tambem pode colocar um por um.(@Setter, @Getter, .....)
 @Builder //Construir um objeto mais facil
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor //Cria um construtor sem argumento 
+@AllArgsConstructor //Cria um construtor com argumento
 public class Usuario {
 	
 	//Mapeamento das colunas
