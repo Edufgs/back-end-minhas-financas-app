@@ -13,12 +13,16 @@ import com.edufgs.minhasfinancas.exception.RegraNegocioException;
 import com.edufgs.minhasfinancas.model.entity.Usuario;
 import com.edufgs.minhasfinancas.service.UsuarioService;
 
+import lombok.RequiredArgsConstructor;
+
 /* Classe Controller que controla as requisições web*/
 
 @RestController //Diz que é o controller
 @RequestMapping("/api/usuarios") //Dia que todas as requisições que começar com "/api/usuarios" vão entrar nesse controller "UsuarioResource"
+@RequiredArgsConstructor //Cria um construtor com todos os argumentos obrigatorios que termina com "final". É da API Lombok
 public class UsuarioResource {
 	
+	/* Antes precisava disso
 	//Esta sendo adicionado uma interface pois o container de injeção de dependendia do Spring vai procurar uma implementação e adicionar aqui
 	private UsuarioService service;
 	
@@ -26,6 +30,10 @@ public class UsuarioResource {
 	public UsuarioResource(UsuarioService service) {
 		this.service = service;
 	}
+	*/
+	
+	//Agora deixa as variaveis do tipo final e adiciona @RequiredArgsConstructor que cria um construtor com todos os argumentos obrigatorios que termina com "final". É da API Lombok
+	private final UsuarioService service;
 	
 	/* Para testar é executar a classe MinhasfinancasApplication.java
 	 * Depois de compilar é só ir no navegador e colocar http://localhost:8080/
