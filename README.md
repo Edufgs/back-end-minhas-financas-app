@@ -5,3 +5,7 @@ Desenvolvimento back-end usando Spring Boot de um site para registrar as finanç
 # Foi utilizados:
 * Spring Boot V2.1.8
 * PostgreSQL
+
+# Testes feitos com:
+* Junit4
+* Insomnia
