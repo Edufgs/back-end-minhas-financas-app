@@ -7,5 +7,5 @@ Desenvolvimento back-end usando Spring Boot de um site para registrar as finanç
 * PostgreSQL
 
 # Testes feitos com:
-* Junit4
-* Insomnia
+* Junit4: é um framework open-source, que se assemelha ao raio de testes software java.
+* Insomnia: enviar solicitações REST, SOAP, GraphQL e GRPC.
