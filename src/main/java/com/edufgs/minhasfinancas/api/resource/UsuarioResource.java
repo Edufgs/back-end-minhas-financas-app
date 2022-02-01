@@ -1,7 +1,12 @@
 package com.edufgs.minhasfinancas.api.resource;
 
+import java.math.BigDecimal;
+import java.util.Optional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +16,7 @@ import com.edufgs.minhasfinancas.api.dto.UsuarioDTO;
 import com.edufgs.minhasfinancas.exception.ErroAutenticacao;
 import com.edufgs.minhasfinancas.exception.RegraNegocioException;
 import com.edufgs.minhasfinancas.model.entity.Usuario;
+import com.edufgs.minhasfinancas.service.LancamentoService;
 import com.edufgs.minhasfinancas.service.UsuarioService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,6 +40,7 @@ public class UsuarioResource {
 	
 	//Agora deixa as variaveis do tipo final e adiciona @RequiredArgsConstructor que cria um construtor com todos os argumentos obrigatorios que termina com "final". É da API Lombok
 	private final UsuarioService service;
+	private final LancamentoService lancamentoService;
 	
 	/* Para testar é executar a classe MinhasfinancasApplication.java
 	 * Depois de compilar é só ir no navegador e colocar http://localhost:8080/
@@ -86,5 +93,20 @@ public class UsuarioResource {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
+	/* Retorna a o saldo de acordo com os lançamentos (RECEITA ou DESPESA)
+	 * @GetMapping = requisita algo como um get normal
+	 */
+	@GetMapping("{id}/saldo")
+	public ResponseEntity obterSaldo(@PathVariable("id") Long id) {
+		//verifica se o id é valido
+		Optional<Usuario> usuario = service.obterPorId(id);
+		
+		if(!usuario.isPresent()) {
+			//Retorna um NOT_FOUND para indicar que não foi encontrado o recurso no servidor
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		
+		BigDecimal saldo = lancamentoService.obterSaldoPorUsuario(id);
+		return ResponseEntity.ok(saldo);
+	}
 }

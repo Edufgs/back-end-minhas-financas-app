@@ -1,5 +1,6 @@
 package com.edufgs.minhasfinancas.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,4 +29,7 @@ public interface LancamentoService {
 	
 	//Busca lancamento por id
 	Optional<Lancamento> obterPorId(Long id);
+	
+	//Obter saldo do Usuario
+	BigDecimal obterSaldoPorUsuario(Long id);
 }

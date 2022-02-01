@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.edufgs.minhasfinancas.api.dto.AtualizaStatusDTO;
 import com.edufgs.minhasfinancas.api.dto.LancamentoDTO;
 import com.edufgs.minhasfinancas.exception.RegraNegocioException;
 import com.edufgs.minhasfinancas.model.entity.Lancamento;
@@ -49,6 +50,7 @@ public class LancamentoResource {
 	
 	/* @RequestParem = pega a requição via URL
 	 * required = false = Diz que não é obrigatorio, só passa se quiser
+	 * @GetMapping = requisita algo como um get normal
 	 * */
 	@GetMapping
 	public ResponseEntity buscar( 
@@ -80,8 +82,7 @@ public class LancamentoResource {
 	}
 	
 	/* Metodo para salvar os lancamentos no banco
-	 * @RequestBody = Diz ao objeto Json que vem da requisição com os dados do usuario seja transformados no objeto "UsuarioDTO
-	 * @PostMapping("/autenticar") = Como é uma requisição tipo POST (enviar dados para um servidor) então coloca essa notação. Como não tem ("") então vai ser o endereço que está definido no @RequestMapping("/api/lancamentos") lá da classe 
+	 * @RequestBody = Diz ao objeto Json que vem da requisição com os dados que seja transformados no objeto "LancamentoDTO" 
 	 * */
 	@PostMapping
 	public ResponseEntity salvar( @RequestBody LancamentoDTO dto ){
@@ -104,6 +105,7 @@ public class LancamentoResource {
 	/* Atualiza um lancamento
 	 * @PutMapping("{id}") = atualiza um recurso presente no servidor onde é passado o id. No endereço quando passar um id "/api/lancamentos/7" então automaticamente entrara no id do servidor
 	 * @PathVariable("id") Long id = passa o id para atulizar no servidor
+	 * @RequestBody = Diz ao objeto Json que vem da requisição com os dados que seja transformados no objeto "LancamentoDTO"
 	 * */
 	@PutMapping("{id}")
 	public ResponseEntity atualizar( @PathVariable("id") Long id, @RequestBody LancamentoDTO dto) {
@@ -117,6 +119,33 @@ public class LancamentoResource {
 				lancamento.setId(entity.getId());
 				service.atualizar(lancamento);
 				return ResponseEntity.ok(lancamento);
+			}catch(RegraNegocioException e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+			}
+			
+		}).orElseGet( () -> new ResponseEntity("Lançamento não encontrado na base de dados", HttpStatus.BAD_REQUEST) );
+	}
+	
+	/* Atualiza os status de lançamento
+	 * @PutMapping("{id}/atualiza-status") = atualiza um recurso presente no servidor onde é passado o id. No endereço quando passar um id "/api/lancamentos/7/atualiza-status" então automaticamente entrara no id do servidor
+	 * Foi passado o /atualiza-status pois se coloca-se só o id, então entraria no metodo a cima "atualizar" que está com a mesma anotação @PutMapping
+	 * @RequestBody = Diz ao objeto Json que vem da requisição com os dados que seja transformados no objeto "AtualizaStatusDTO"
+	 * @PathVariable("id") Long id = passa o id para atulizar no servidor
+	 * */
+	@PutMapping("{id}/atualiza-status")
+	public ResponseEntity atualizarStatus( @PathVariable("id") Long id, @RequestBody AtualizaStatusDTO dto ) {
+		//map é mapear por id e o obterPorId(id) pega o id e retorna para a entity onde é executado uma função
+		return service.obterPorId(id).map( entity -> {
+			StatusLancamento statusSelecionado =  StatusLancamento.valueOf(dto.getStatus());
+			
+			if(statusSelecionado == null) {
+				return ResponseEntity.badRequest().body("Não foi opossivel atualizar o status do lancamento, envie um status válido.");
+			}
+			
+			try {
+				entity.setStatus(statusSelecionado);			
+				service.atualizar(entity);
+				return ResponseEntity.ok(entity);
 			}catch(RegraNegocioException e) {
 				return ResponseEntity.badRequest().body(e.getMessage());
 			}

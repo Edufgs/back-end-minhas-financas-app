@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.edufgs.minhasfinancas.exception.RegraNegocioException;
 import com.edufgs.minhasfinancas.model.entity.Lancamento;
 import com.edufgs.minhasfinancas.model.enums.StatusLancamento;
+import com.edufgs.minhasfinancas.model.enums.TipoLancamento;
 import com.edufgs.minhasfinancas.model.repository.LancamentoRepository;
 import com.edufgs.minhasfinancas.service.LancamentoService;
 
@@ -132,6 +133,34 @@ public class LancamentoServiceImpl implements LancamentoService {
 	@Override
 	public Optional<Lancamento> obterPorId(Long id) {	
 		return repository.findById(id);
+	}
+
+	@Override
+	/* Cria na base de dados uma transação, executa o metodo de salvar o usuario quando pedir e depois que salvar vai commitar. Se acontecer algum erro é feito o rollback.
+	 * (readOnly = true) diz que é feita somente leitura e o Spring faz umas otimizacoes.
+	 * */
+	@Transactional(readOnly = true) 
+	public BigDecimal obterSaldoPorUsuario(Long id) {
+		
+		//Passa o id para obterSaldoPorTipoLancamentoEUsuario e o tipo Enum RECEITA em formato de String (.name()) para ser procurado no banco de dados
+		//A soma é adicionada na receitas
+		BigDecimal receitas = repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.RECEITA.name());
+		//Passa o id para obterSaldoPorTipoLancamentoEUsuario e o tipo Enum DESPESA em formato de String (.name()) para ser procurado no banco de dados
+		//A soma é adicionada na despesas
+		BigDecimal despesas = repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.DESPESA.name());
+		
+		if(receitas == null) {
+			//BigDecimal.ZERO é a constante 0
+			receitas = BigDecimal.ZERO;
+		}
+		
+		if(despesas == null) {
+			//BigDecimal.ZERO é a constante 0
+			despesas = BigDecimal.ZERO;
+		}
+		
+		//subtract é o metodo de subtrai de algum valor do tipo BigDecimal
+		return receitas.subtract(despesas);
 	}
 	
 	
