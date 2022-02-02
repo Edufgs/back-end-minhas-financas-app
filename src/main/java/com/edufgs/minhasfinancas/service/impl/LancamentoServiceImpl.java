@@ -125,7 +125,7 @@ public class LancamentoServiceImpl implements LancamentoService {
 		
 		//Verifica se é vazio pois só tem dois tipo de lancamento
 		if(lancamento.getTipo() == null) {
-			throw new RegraNegocioException("Informe um Tipo de Lançamento");
+			throw new RegraNegocioException("Informe um Tipo de Lançamento.");
 		}
 		
 	}
