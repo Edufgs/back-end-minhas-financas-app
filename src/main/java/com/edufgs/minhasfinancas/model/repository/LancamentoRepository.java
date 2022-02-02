@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.edufgs.minhasfinancas.model.entity.Lancamento;
+import com.edufgs.minhasfinancas.model.enums.TipoLancamento;
 
 /* Os repositórios Spring Data JPA são interfaces que você pode definir para acessar dados. 
  * As consultas JPA são criadas automaticamente a partir de seus nomes de métodos. 
@@ -24,6 +25,6 @@ public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
 	 * @Param("idUsuario") = Relaciona  a variavel com a anotação em @Query
 	 * */
 	@Query( value = "select sum(l.valor) from Lancamento l join l.usuario u where u.id = :idUsuario and l.tipo =:tipo group by u " )
-	BigDecimal obterSaldoPorTipoLancamentoEUsuario( @Param("idUsuario") Long idUsuario, @Param("tipo") String tipo);
+	BigDecimal obterSaldoPorTipoLancamentoEUsuario( @Param("idUsuario") Long idUsuario, @Param("tipo") TipoLancamento tipo);
 	
 }

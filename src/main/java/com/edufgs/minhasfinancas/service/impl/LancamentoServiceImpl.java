@@ -144,10 +144,10 @@ public class LancamentoServiceImpl implements LancamentoService {
 		
 		//Passa o id para obterSaldoPorTipoLancamentoEUsuario e o tipo Enum RECEITA em formato de String (.name()) para ser procurado no banco de dados
 		//A soma é adicionada na receitas
-		BigDecimal receitas = repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.RECEITA.name());
+		BigDecimal receitas = repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.RECEITA);
 		//Passa o id para obterSaldoPorTipoLancamentoEUsuario e o tipo Enum DESPESA em formato de String (.name()) para ser procurado no banco de dados
 		//A soma é adicionada na despesas
-		BigDecimal despesas = repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.DESPESA.name());
+		BigDecimal despesas = repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.DESPESA);
 		
 		if(receitas == null) {
 			//BigDecimal.ZERO é a constante 0
