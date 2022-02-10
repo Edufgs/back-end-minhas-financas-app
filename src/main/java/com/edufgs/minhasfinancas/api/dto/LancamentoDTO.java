@@ -8,12 +8,16 @@ import java.math.BigDecimal;
 
 import com.edufgs.minhasfinancas.model.entity.Usuario;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 //Usando o Lombok em vez de digitar o set e get entre outros
 @Data //Já tem tudo que get, set, constructor, entre outros. Mas tambem pode colocar um por um.(@Setter, @Getter, .....)
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class LancamentoDTO {
 	
 	private Long id;

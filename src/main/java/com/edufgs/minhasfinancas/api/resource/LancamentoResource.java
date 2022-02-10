@@ -81,6 +81,19 @@ public class LancamentoResource {
 		return ResponseEntity.ok(lancamentos);
 	}
 	
+	/* Obtem lançamento por id
+	 * @PathVariable("id") Long id = passa o id para atulizar no servidor
+	 * @GetMapping("{id}") = requisita algo como um get normal onde vai estar passando um id junto da url
+	 * */
+	@GetMapping("{id}")
+	public ResponseEntity obterLancamento( @PathVariable("id") Long id) {
+		return service.obterPorId(id)
+				//Se o Lancamento foi encontrado ele retorna o lançamento e o codigo http ok
+				.map(lancamento -> new ResponseEntity(converter(lancamento), HttpStatus.OK))
+				//Se não encontrar nada então retorna o codigo http Not_Found
+				.orElseGet(() ->  new ResponseEntity(HttpStatus.NOT_FOUND));
+	}
+	
 	/* Metodo para salvar os lancamentos no banco
 	 * @RequestBody = Diz ao objeto Json que vem da requisição com os dados que seja transformados no objeto "LancamentoDTO" 
 	 * */
@@ -165,6 +178,19 @@ public class LancamentoResource {
 			return new ResponseEntity (HttpStatus.NO_CONTENT);
 			//Se não encontrar nada então retorna o erro
 		}).orElseGet( () -> new ResponseEntity("Lançamento não encontrado na base de dados", HttpStatus.BAD_REQUEST));
+	}
+	
+	private LancamentoDTO converter (Lancamento lancamento) {
+		return LancamentoDTO.builder()
+				.id(lancamento.getId())
+				.descricao(lancamento.getDescricao())
+				.valor(lancamento.getValor())
+				.mes(lancamento.getMes())
+				.ano(lancamento.getAno())
+				.status(lancamento.getStatus().name())
+				.tipo(lancamento.getTipo().name())
+				.usuario(lancamento.getUsuario().getId())
+				.build();
 	}
 	
 	/* Transforma o LancamentoDTO em Lancamento entidade
