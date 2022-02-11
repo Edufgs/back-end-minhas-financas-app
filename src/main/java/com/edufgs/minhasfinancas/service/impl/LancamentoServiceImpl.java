@@ -142,12 +142,12 @@ public class LancamentoServiceImpl implements LancamentoService {
 	@Transactional(readOnly = true) 
 	public BigDecimal obterSaldoPorUsuario(Long id) {
 		
-		//Passa o id para obterSaldoPorTipoLancamentoEUsuario e o tipo Enum RECEITA em formato de String (.name()) para ser procurado no banco de dados
+		//Passa o id para obterSaldoPorTipoLancamentoEUsuario, o tipo Enum RECEITA em formato de String (.name()) e status de EFETIVADO para ser procurado no banco de dados
 		//A soma é adicionada na receitas
-		BigDecimal receitas = repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.RECEITA);
-		//Passa o id para obterSaldoPorTipoLancamentoEUsuario e o tipo Enum DESPESA em formato de String (.name()) para ser procurado no banco de dados
+		BigDecimal receitas = repository.obterSaldoPorTipoLancamentoEUsuarioEStatus(id, TipoLancamento.RECEITA, StatusLancamento.EFETIVADO);
+		//Passa o id para obterSaldoPorTipoLancamentoEUsuario, o tipo Enum DESPESA em formato de String (.name()) e status de EFETIVADO para ser procurado no banco de dados
 		//A soma é adicionada na despesas
-		BigDecimal despesas = repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.DESPESA);
+		BigDecimal despesas = repository.obterSaldoPorTipoLancamentoEUsuarioEStatus(id, TipoLancamento.DESPESA, StatusLancamento.EFETIVADO);
 		
 		if(receitas == null) {
 			//BigDecimal.ZERO é a constante 0

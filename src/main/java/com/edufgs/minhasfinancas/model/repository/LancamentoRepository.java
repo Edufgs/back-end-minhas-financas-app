@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.edufgs.minhasfinancas.model.entity.Lancamento;
+import com.edufgs.minhasfinancas.model.enums.StatusLancamento;
 import com.edufgs.minhasfinancas.model.enums.TipoLancamento;
 
 /* Os repositórios Spring Data JPA são interfaces que você pode definir para acessar dados. 
@@ -16,15 +17,17 @@ import com.edufgs.minhasfinancas.model.enums.TipoLancamento;
  * */ 
 public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
 	
-	/* Obter saldo por tipo lançamento e usuario
+	/* Obter saldo por tipo lançamento, usuario e status
 	 * Não vai ser usado query metodo pois normalmente é usado para consulta mais simples
 	 * @Query manda uma string de consulta do tipo JQPL
 	 * Então é mandado essa String onde sum(l.valor) soma o valor dos lancamentos, onde l vem do l.usuario que é lancamento do usuario,
-	 * o u.id vem da variavel idUsuario que vai ser passado e o l.tipo vem do tipo que vai ser passado.
+	 * o u.id vem da variavel idUsuario que vai ser passado, o l.tipo vem do tipo que vai ser passado e o l.status que é qual o status que vai ser buscado tb teve ser passado.
 	 * A somatoria é por usuario então foi colocado group by u.
 	 * @Param("idUsuario") = Relaciona  a variavel com a anotação em @Query
 	 * */
-	@Query( value = "select sum(l.valor) from Lancamento l join l.usuario u where u.id = :idUsuario and l.tipo =:tipo group by u " )
-	BigDecimal obterSaldoPorTipoLancamentoEUsuario( @Param("idUsuario") Long idUsuario, @Param("tipo") TipoLancamento tipo);
-	
+	@Query( value = "select sum(l.valor) from Lancamento l join l.usuario u where u.id = :idUsuario and l.tipo =:tipo and l.status = :status group by u " )
+	BigDecimal obterSaldoPorTipoLancamentoEUsuarioEStatus( 
+			@Param("idUsuario") Long idUsuario, 
+			@Param("tipo") TipoLancamento tipo,
+			@Param("status") StatusLancamento status);	
 }
