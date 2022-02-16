@@ -3,20 +3,20 @@ package com.edufgs.minhasfinancas.model.repository;
 import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.edufgs.minhasfinancas.model.entity.Usuario;
 
 //Anotação para teste
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 //@SpringBootTest //No começo foi usada essa notação para testar mas depois de um tempo não precisa mais. Essa notação faz com que o contexto do spring boot teste suba para essa classe.
 @ActiveProfiles("test") //Seleciona o perfil do teste usando h2
 @DataJpaTest //Essa notação faz cria uma instacia do banco na memoria e deleta depois que o teste é feito. Tambem depois de um teste acontece um rowback no banco
@@ -26,12 +26,13 @@ public class UsuarioRepositoryTest {
 	@Autowired //Injeta essa classe no contexto do spring boot
 	UsuarioRepository repository; //Classe que quero testar
 	
-	@Autowired
+	
 	/* EntityManager é a classe responsavel por fazer operações na base de dados. 
 	 * O UsuarioRepository tem uma instacia do EntityManager. 
 	 * Então vai ser usado o EntityManagar para manipular o cenario.
 	 * Ele não é  oficial, ele é só um teste olhando a declaração TestEntityManager. Ele é configurado somente para teste.
 	 * */
+	@Autowired
 	TestEntityManager entityManager; 
 	
 	/* Todo metodo do tipo teste tem retorno void
@@ -50,7 +51,6 @@ public class UsuarioRepositoryTest {
 		
 		//Ação/Execução
 		boolean result = repository.existsByEmail("usuario@email.com");
-		
 		//Verificação
 		//Assertions = vem junto com o modulo do spring boot
 		//Verifica se o result é true

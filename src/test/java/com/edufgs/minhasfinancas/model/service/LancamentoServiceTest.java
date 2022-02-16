@@ -7,14 +7,15 @@ import org.assertj.core.api.Assertions;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.data.domain.Example;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.edufgs.minhasfinancas.exception.RegraNegocioException;
 import com.edufgs.minhasfinancas.model.entity.Lancamento;
@@ -23,10 +24,11 @@ import com.edufgs.minhasfinancas.model.enums.StatusLancamento;
 import com.edufgs.minhasfinancas.model.enums.TipoLancamento;
 import com.edufgs.minhasfinancas.model.repository.LancamentoRepository;
 import com.edufgs.minhasfinancas.model.repository.LancamentoRepositoryTeste;
+//import com.edufgs.minhasfinancas.model.repository.LancamentoRepositoryTeste;
 import com.edufgs.minhasfinancas.service.impl.LancamentoServiceImpl;
 
 //Anotação para teste
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @ActiveProfiles("test") //Seleciona o perfil do teste usando h2
 public class LancamentoServiceTest {
 	//Ele chama o metodo real ao contrario o mock

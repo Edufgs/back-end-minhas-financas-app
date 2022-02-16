@@ -3,12 +3,13 @@ package com.edufgs.minhasfinancas.model.service;
 import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.edufgs.minhasfinancas.exception.ErroAutenticacao;
@@ -19,7 +20,7 @@ import com.edufgs.minhasfinancas.service.impl.UsuarioServiceImpl;
 
 //Anotação para teste
 //@SpringBootTest //No começo foi usada essa notação para testar mas depois de um tempo não precisa mais. Essa notação faz com que o contexto do spring boot teste suba para essa classe.
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @ActiveProfiles("test") //Seleciona o perfil do teste usando h2
 public class UsuarioServiceTest {
 	
@@ -49,7 +50,7 @@ public class UsuarioServiceTest {
 		//service = new UsuarioServiceImpl(repository);
 	}*/
 	
-	@Test(expected = Test.None.class) //Espera que não lance erro nesse teste
+	@Test
 	public void deveSalvarUsuario() {
 		//Cenario
 		//doNothing() diz para não fazer nada, não da nenhum erro no metodo validarEmail passando qualquer string (anyString)
@@ -82,7 +83,7 @@ public class UsuarioServiceTest {
 		
 	}
 	
-	@Test(expected = RegraNegocioException.class)  // Diz para o teste esperar uma exceção/erro
+	@Test
 	public void naoDeveSalvarUmUsuarioComEmailJaCadastrado() {
 		//Cenario
 		String email = "email@email.com";
@@ -91,7 +92,10 @@ public class UsuarioServiceTest {
 		Mockito.doThrow(RegraNegocioException.class).when(service).validarEmail(email);
 		
 		//Acao
-		service.salvarUsuario(usuario);
+		//Lance um RegraNegocioException ao executar service.salvarUsuario(usuario)
+		// () -> = é uma expressão lambida
+		org.junit.jupiter.api.Assertions
+			.assertThrows(RegraNegocioException.class, () -> service.salvarUsuario(usuario));
 		
 		//Verificacao
 		//Metodo verify recebe o metodo que nunca deve ser chamado
@@ -100,8 +104,7 @@ public class UsuarioServiceTest {
 		
 	}
 	
-	/*(expected = Test.None.class) = Diz para o teste esperar que não lance nem uma exceção */
-	@Test(expected = Test.None.class)
+	@Test
 	public void deveAutenticarUsuarioComSucesso() {
 		//Cenario
 		String email = "email@email.com";
@@ -122,7 +125,7 @@ public class UsuarioServiceTest {
 		Assertions.assertThat(result).isNotNull();
 	}
 	
-	@Test//Não precisa mais de (expected = ErroAutenticacao.class), pois vai ser testado com Assertion. // Diz para o teste esperar uma exceção
+	@Test
 	public void deveLancarErroQuandoNaoEncontrarUsuarioCadastradoComEmailInformado() {
 		
 		//Cenario
@@ -139,7 +142,7 @@ public class UsuarioServiceTest {
 		
 	}
 	
-	@Test //Não precisa mais de (expected = ErroAutenticacao.class), pois vai ser testado com Assertion. // Diz para o teste esperar uma exceção
+	@Test
 	public void deveLancarErroQuandoSenhaNaoBater() {
 		//Cenario
 		String senha = "senha";		
@@ -157,9 +160,8 @@ public class UsuarioServiceTest {
 		Assertions.assertThat(exception).isInstanceOf(ErroAutenticacao.class).hasMessage("Senha Inválida.");
 		
 	}
-	
-	/*(expected = Test.None.class) = Diz para o teste esperar que não lance nem uma exceção */
-	@Test(expected = Test.None.class)
+
+	@Test
 	public void deveValidarEmail() {
 		//cenario
 		//Classe mock onde ela cria instancias fake e simula que chamou algum metodo 
@@ -168,17 +170,16 @@ public class UsuarioServiceTest {
 		//Quando fizer a chamada para o mocki repository o metodo existsByEmail passando qualquer string não interessando a string passada vai dar return false
 		//Resumindo: Quando chamar o metodo repository.existsByEmail passando qualquer string como parametro vai retornar false 
 		Mockito.when(repository.existsByEmail(Mockito.anyString())).thenReturn(false);		
-		
+		System.out.println("Foi");
 		//Exclui tudo do repositorio
 		//repository.deleteAll();
 		
 		//acao
-		//Esse metodo retorna uma exceção se tiver um email cadastrado, por isso foi colocado (expected = Test.None.class) para verificar se retorna uma exceção.
 		service.validarEmail("usuario@email.com");
 	}
 	
 	/* Metodo que retorna um erro se tiver email cadastrado (Ao contrario do metodo de cima */
-	@Test(expected = RegraNegocioException.class) // Diz para o teste esperar uma exceção RegraNegocioException
+	@Test
 	public void deveRetornarErroAoValidarEmailQuandoExistirEmailCadastrado(){
 		//cenario
 		//builder ajuda a constroir o objeto
@@ -189,6 +190,8 @@ public class UsuarioServiceTest {
 		Mockito.when(repository.existsByEmail(Mockito.anyString())).thenReturn(true);
 		
 		//acao
-		service.validarEmail("email@email.com");
+		//Lance um RegraNegocioException ao executar service.validarEmail("usuario@email.com")
+		// () -> = é uma expressão lambida
+		org.junit.jupiter.api.Assertions.assertThrows(RegraNegocioException.class, () -> service.validarEmail("email@email.com"));
 	}
 }

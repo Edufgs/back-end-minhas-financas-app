@@ -5,22 +5,23 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*; //Deixa static todos metodos desse classe
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.edufgs.minhasfinancas.model.entity.Lancamento;
 import com.edufgs.minhasfinancas.model.enums.StatusLancamento;
 import com.edufgs.minhasfinancas.model.enums.TipoLancamento;
 
 //Anotação para teste
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @DataJpaTest //Essa notação faz cria uma instacia do banco na memoria e deleta depois que o teste é feito. Tambem depois de um teste acontece um rowback no banco
 @AutoConfigureTestDatabase(replace = Replace.NONE) //Faz não cria uma instacia propria e não sobreescreve as configurações feitas no arquivo application.properties ou application-test.properties (A notação DataJpaTest faz sobreescrever as configurações feita)
 @ActiveProfiles("test") //Seleciona o perfil do teste usando h2
