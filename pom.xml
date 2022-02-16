@@ -39,6 +39,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+	
+		<!-- Adiciona as dependencia de segurança -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 
 		<!-- Essa dependencia faz o live. Qualquer modificação enquanto estiver funcionando a aplicação vai resultar no recarregamento automaticamente -->
 		<!-- Assim quando a aplicação estiver no ar e o codigo sofrer uma modificação então o Spring boot vai recarregar e subir a aplicação modificada automaticamente -->
