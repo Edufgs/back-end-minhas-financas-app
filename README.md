@@ -4,14 +4,19 @@ Desenvolvimento back-end usando Spring Boot de um site para registrar as finanç
 
 # Ferramentas usadas:
 * <b>Spring Boot V2.2.2:</b> O Spring Boot é um framework Open Source que nasceu a partir do Spring framework e veio para facilitar as configurações iniciais de um projeto.
-
+  <br>Site da Documentação: https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#data.sql
+  
 * <b>PostgreSQL:</b> O PostgreSQL é um poderoso sistema de banco de dados relacional de objeto de código.
+  <br>Site Oficial: https://www.postgresql.org/
 
 * <b>H2:</b> O H2 é um sistema de gerenciamento de banco de dados relacional escrito em Java. Ele pode ser incorporado em aplicativos Java ou executado no modo cliente-servidor. (Utilizado em testes).
+  <br>Site Oficial: https://www.h2database.com/html/main.html
 
 * <b>Lombok:</b> O Lombok é um framework para Java que permite escrever código eliminando a verbosidade, o que permite ganhar tempo de desenvolvimento para o que realmente é importante. Seu uso permite gerar em tempo de compilação os métodos getters e setters, métodos construtores, padrão builder e muito mais.
+ <br>Site Oficial: https://projectlombok.org/
 
 * <b>Jsonwebtoken:</b> é um pacote que implementa o protocolo JSON Web Token.
+<br>Site: https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
 
 # Editor de código-fonte:
 * <b>Eclipse:</b> é uma IDE para desenvolvimento Java, porém suporta várias outras linguagens a partir de plugins como C/C++, PHP, ColdFusion, Python, Scala e Kotlin. Ele foi feito em Java e segue o modelo open source de desenvolvimento de software.
@@ -22,3 +27,15 @@ Desenvolvimento back-end usando Spring Boot de um site para registrar as finanç
 * <b>Insomnia:</b> enviar solicitações REST, SOAP, GraphQL e GRPC. Assim com insomnia é possivel fazer testes de requisições HTTP.
 
 * <b>H2:</b> O H2 é um sistema de gerenciamento de banco de dados relacional escrito em Java. Ele pode ser incorporado em aplicativos Java ou executado no modo cliente-servidor. Foi usado para testes do codigo.
+
+# Instalações: 
+
+<b>Spring Boot:</b> No site https://start.spring.io/ crie o projeto preenchendo os dados e colocando todas as denpendencias como <b>PostgreSQL</b>, <b>H2</b>, <b>Lombok</b>, entre outros. Algumas dependencias é preciso adicionar manualmente no arquivo pom.xml como o <b>Jsonwebtoken</b>:
+
+```
+  <dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+  </dependency>
+```
