@@ -26,16 +26,18 @@ Desenvolvimento back-end usando Spring Boot de um site para registrar as finanç
 
 * <b>Insomnia:</b> enviar solicitações REST, SOAP, GraphQL e GRPC. Assim com insomnia é possivel fazer testes de requisições HTTP.
 
-* <b>H2:</b> O H2 é um sistema de gerenciamento de banco de dados relacional escrito em Java. Ele pode ser incorporado em aplicativos Java ou executado no modo cliente-servidor. Foi usado para testes do codigo.
+* <b>H2:</b> O H2 é um sistema de gerenciamento de banco de dados relacional escrito em Java. Ele pode ser incorporado em aplicativos Java ou executado no modo cliente-servidor. Foi usado para testes do código.
 
 # Instalações: 
 
-<b>Spring Boot:</b> No site https://start.spring.io/ crie o projeto preenchendo os dados e colocando todas as denpendencias como <b>PostgreSQL</b>, <b>H2</b>, <b>Lombok</b>, entre outros. Algumas dependencias é preciso adicionar manualmente no arquivo pom.xml como o <b>Jsonwebtoken</b>:
+<b>Spring Boot:</b> No site https://start.spring.io/ crie o projeto preenchendo os dados e colocando todas as dependências como <b>PostgreSQL</b>, <b>H2</b>, <b>Lombok</b>, entre outros. Algumas dependências é preciso adicionar manualmente no arquivo pom.xml como o <b>Jsonwebtoken</b>:
 
 ```
   <dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.9.1</version>
+	<groupId>io.jsonwebtoken</groupId>
+	<artifactId>jjwt</artifactId>
+	<version>0.9.1</version>
   </dependency>
 ```
+
+Ou indo no site https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt onde tem várias versões para ser selecionad
