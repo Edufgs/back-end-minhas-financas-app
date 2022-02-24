@@ -1,6 +1,6 @@
 # Back-End-minhas-financas-app
 
-Desenvolvimento back-end usando Spring Boot de um site para registrar as finanças, onde o objetivo é aplicar o conhecimento do programador.
+Desenvolvimento back-end usando Spring Boot de um site para registrar as finanças.
 
 # Foi utilizados:
 * Spring Boot V2.1.8
