@@ -1,6 +1,6 @@
 # Back-End-minhas-financas-app
 
-Desenvolvimento back-end usando Spring Boot de um site para registrar as finanças.
+Desenvolvimento back-end usando Spring Boot de uma API para registrar as finanças.
 
 # Ferramentas usadas:
 * <b>Spring Boot V2.2.2:</b> O Spring Boot é um framework Open Source que nasceu a partir do Spring framework e veio para facilitar as configurações iniciais de um projeto.
