@@ -2,6 +2,10 @@
 
 Desenvolvimento back-end usando Spring Boot de uma API para registrar as finanças.
 
+Codigo front-end disponivel em: https://github.com/Edufgs/Front-End-minhas-financas-app
+
+Aplicação pronta está disponivel: https://minhasfinancas-edufgs-app.herokuapp.com/
+
 # Ferramentas usadas:
 * <b>Spring Boot V2.2.2:</b> O Spring Boot é um framework Open Source que nasceu a partir do Spring framework e veio para facilitar as configurações iniciais de um projeto.
   <br>Site da Documentação: https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#data.sql
@@ -40,4 +44,4 @@ Desenvolvimento back-end usando Spring Boot de uma API para registrar as finanç
   </dependency>
 ```
 
-Ou indo no site https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt onde tem várias versões para ser selecionad
+Ou indo no site https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt onde tem várias versões para ser selecionadas.
