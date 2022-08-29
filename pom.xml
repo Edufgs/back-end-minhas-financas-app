@@ -5,7 +5,7 @@
 
 	<groupId>com.edufgs</groupId>
 	<artifactId>minhasfinancas</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>minhasfinancas</name>
 	<description>Projeto de gerenciamento de finanças pessoais</description>
 
