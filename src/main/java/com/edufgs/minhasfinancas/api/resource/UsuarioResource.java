@@ -89,9 +89,8 @@ public class UsuarioResource {
 				.build();
 		
 		//Tenta salvar o usuario no banco de dados
-		try {			
+		try {
 			Usuario usuarioSalvo = service.salvarUsuario(usuario);
-			
 			//Se der certo vai retornar o codigo do HTTP sucesso (Created: 201)
 			//Foi utilizado o new ResponseEntity pois é para retornar um objeto
 			return new ResponseEntity(usuarioSalvo,HttpStatus.CREATED);

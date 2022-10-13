@@ -1,0 +1,27 @@
+# Aquivo serve para colocar as propriedades do ambiente
+# Pode ser criado varios arquivos com essa propriedade para confgurar o resto do ambiente
+
+# URL: � usado o padrao JDBC
+# Dados do banco em local host
+# spring.datasource.url=jdbc:postgresql://host:porta/nome_banco
+# spring.datasource.username=xxxxxx
+# spring.datasource.password=xxxxxx
+
+# URL:� usado o padrao JDBC
+# Dados do banco no Heroku Postgres
+spring.datasource.url=jdbc:postgresql://host:porta/nome_banco
+spring.datasource.username=nome_usuario
+spring.datasource.password=senha_usuario
+# O Drive e importante mesmo nao estando no site do Spring Boot
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# O tempo que pode usar o sistema e quando acabar o tempo ent�o � preciso logar novamente e gerar um novo token. Esse tempo vai ser usado para gera token
+# O tempo vai ser em minutos
+jwt.expiracao=30
+
+# Vai guarda a chave de assinatura e so quem conhece isso aqui e o servidor, ela e bem sensivel. Vai ser usado para gerar o token
+# Foi entrado no site "https://www.base64encode.org/" e colocado uma frase la e assim criado essa chave onde sa o programador conhece
+jwt.chave.assinatura=chave_assinatura
+
+#Porta de execução
+#server.port=8081
